@@ -1,0 +1,11 @@
+/home/arthurcruz/Documents/Projetos/autoHome/src/AutoHome.Domain/bin/Debug/net10.0/AutoHome.Domain.deps.json
+/home/arthurcruz/Documents/Projetos/autoHome/src/AutoHome.Domain/bin/Debug/net10.0/AutoHome.Domain.dll
+/home/arthurcruz/Documents/Projetos/autoHome/src/AutoHome.Domain/bin/Debug/net10.0/AutoHome.Domain.pdb
+/home/arthurcruz/Documents/Projetos/autoHome/src/AutoHome.Domain/obj/Debug/net10.0/AutoHome.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/home/arthurcruz/Documents/Projetos/autoHome/src/AutoHome.Domain/obj/Debug/net10.0/AutoHome.Domain.AssemblyInfoInputs.cache
+/home/arthurcruz/Documents/Projetos/autoHome/src/AutoHome.Domain/obj/Debug/net10.0/AutoHome.Domain.AssemblyInfo.cs
+/home/arthurcruz/Documents/Projetos/autoHome/src/AutoHome.Domain/obj/Debug/net10.0/AutoHome.Domain.csproj.CoreCompileInputs.cache
+/home/arthurcruz/Documents/Projetos/autoHome/src/AutoHome.Domain/obj/Debug/net10.0/AutoHome.Domain.dll
+/home/arthurcruz/Documents/Projetos/autoHome/src/AutoHome.Domain/obj/Debug/net10.0/refint/AutoHome.Domain.dll
+/home/arthurcruz/Documents/Projetos/autoHome/src/AutoHome.Domain/obj/Debug/net10.0/AutoHome.Domain.pdb
+/home/arthurcruz/Documents/Projetos/autoHome/src/AutoHome.Domain/obj/Debug/net10.0/ref/AutoHome.Domain.dll
