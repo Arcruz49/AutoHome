@@ -1,8 +1,0 @@
-<Solution>
-  <Folder Name="/src/">
-    <Project Path="src/AutoHome.Api/AutoHome.Api.csproj" />
-    <Project Path="src/AutoHome.Application/AutoHome.Application.csproj" />
-    <Project Path="src/AutoHome.Domain/AutoHome.Domain.csproj" />
-    <Project Path="src/AutoHome.Infrastructure/AutoHome.Infrastructure.csproj" />
-  </Folder>
-</Solution>
