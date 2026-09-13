@@ -10,36 +10,36 @@ namespace AutoHome.Api.Endpoints;
 public class AuthController : BaseController
 {
     
-    // [EnableRateLimiting("login")]
-    [HttpPost("login")]
-    public async Task<IActionResult> Login([FromBody] LoginRequest request)
-    {
-        Response.Cookies.Append("autohome_token", result.token, new CookieOptions
-        {
-            HttpOnly = true,
-            Secure = isHttps,
-            SameSite = isHttps ? SameSiteMode.None : SameSiteMode.Lax,
-            Expires = DateTime.UtcNow.AddMinutes(60)
-        });
+    // // [EnableRateLimiting("login")]
+    // [HttpPost("login")]
+    // public async Task<IActionResult> Login([FromBody] LoginRequest request)
+    // {
+    //     Response.Cookies.Append("autohome_token", result.token, new CookieOptions
+    //     {
+    //         HttpOnly = true,
+    //         Secure = isHttps,
+    //         SameSite = isHttps ? SameSiteMode.None : SameSiteMode.Lax,
+    //         Expires = DateTime.UtcNow.AddMinutes(60)
+    //     });
 
-        return Ok();
-    }
+    //     return Ok();
+    // }
 
-    [HttpPost("register")]
-    public async Task<IActionResult> Register([FromBody] RegisterUserRequest request)
-    {
+    // [HttpPost("register")]
+    // public async Task<IActionResult> Register([FromBody] RegisterUserRequest request)
+    // {
         
-        return Ok();
-    }
+    //     return Ok();
+    // }
 
-    [Authorize]
-    [HttpGet("me")]
-    public IActionResult Me()
-    {
-        var name = User.FindFirstValue(ClaimTypes.Name);
-        var id = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        return Ok(new { id, name });
-    }
+    // [Authorize]
+    // [HttpGet("me")]
+    // public IActionResult Me()
+    // {
+    //     var name = User.FindFirstValue(ClaimTypes.Name);
+    //     var id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    //     return Ok(new { id, name });
+    // }
 
     [Authorize]
     [HttpPost("logout")]

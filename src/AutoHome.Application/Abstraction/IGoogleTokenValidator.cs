@@ -1,3 +1,5 @@
+using AutoHome.Application.Common;
+
 namespace AutoHome.Application.Abstractions;
 
 public interface IGoogleTokenValidator
