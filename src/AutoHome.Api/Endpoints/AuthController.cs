@@ -12,26 +12,21 @@ namespace AutoHome.Api.Endpoints;
 public class AuthController : BaseController
 {
     private readonly RegisterUserHandler _registerUserHandler;
+    private readonly LoginUserHandler _loginUserHandler;
 
-    public AuthController(RegisterUserHandler registerUserHandler)
+    public AuthController(RegisterUserHandler registerUserHandler, LoginUserHandler loginUserHandler)
     {
         _registerUserHandler = registerUserHandler;
+        _loginUserHandler = loginUserHandler;
     }
     
-    // // [EnableRateLimiting("login")]
-    // [HttpPost("login")]
-    // public async Task<IActionResult> Login([FromBody] LoginRequest request)
-    // {
-    //     Response.Cookies.Append("autohome_token", result.token, new CookieOptions
-    //     {
-    //         HttpOnly = true,
-    //         Secure = isHttps,
-    //         SameSite = isHttps ? SameSiteMode.None : SameSiteMode.Lax,
-    //         Expires = DateTime.UtcNow.AddMinutes(60)
-    //     });
-
-    //     return Ok();
-    // }
+    // [EnableRateLimiting("login")]
+    [HttpPost("login")]
+    public async Task<IActionResult> Login(LoginUserRequest request, CancellationToken ct)
+    {
+        var result = await _loginUserHandler.HandleAsync(new LoginUserCommand(request.IdToken), ct);
+        return result.IsSuccess ? Ok(result) : BadRequest(new { error = result });
+    }
 
     [HttpPost("register")]
     public async Task<IActionResult> Register(RegisterUserRequest request, CancellationToken ct)

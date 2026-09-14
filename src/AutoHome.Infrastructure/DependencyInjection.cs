@@ -20,7 +20,9 @@ public static class DependencyInjection
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<RegisterUserHandler>();
+        services.AddScoped<LoginUserHandler>();
         services.AddScoped<IConfigRepository, ConfigRepository>();
+        services.AddScoped<ITokenIssuer, JwtTokenIssuer>();
 
         return services;
     }
