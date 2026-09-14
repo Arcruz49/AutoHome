@@ -1,5 +1,6 @@
 using AutoHome.Application.Abstractions;
 using AutoHome.Application.Abstractions.Persistance;
+using AutoHome.Application.Commands;
 using AutoHome.Domain.Abstractions.Repositories;
 using AutoHome.Infrastructure.Auth;
 using AutoHome.Infrastructure.Repositories;
@@ -18,6 +19,8 @@ public static class DependencyInjection
         services.AddScoped<IGoogleTokenValidator, GoogleTokenValidator>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<RegisterUserHandler>();
+        services.AddScoped<IConfigRepository, ConfigRepository>();
 
         return services;
     }
