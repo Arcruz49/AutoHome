@@ -1,3 +1,5 @@
+using AutoHome.Application.Commands;
+using AutoHome.Application.DTOs.Requests;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
@@ -9,6 +11,12 @@ namespace AutoHome.Api.Endpoints;
 [Route("auth")]
 public class AuthController : BaseController
 {
+    private readonly RegisterUserHandler _registerUserHandler;
+
+    public AuthController(RegisterUserHandler registerUserHandler)
+    {
+        _registerUserHandler = registerUserHandler;
+    }
     
     // // [EnableRateLimiting("login")]
     // [HttpPost("login")]
@@ -25,21 +33,12 @@ public class AuthController : BaseController
     //     return Ok();
     // }
 
-    // [HttpPost("register")]
-    // public async Task<IActionResult> Register([FromBody] RegisterUserRequest request)
-    // {
-        
-    //     return Ok();
-    // }
-
-    // [Authorize]
-    // [HttpGet("me")]
-    // public IActionResult Me()
-    // {
-    //     var name = User.FindFirstValue(ClaimTypes.Name);
-    //     var id = User.FindFirstValue(ClaimTypes.NameIdentifier);
-    //     return Ok(new { id, name });
-    // }
+    [HttpPost("register")]
+    public async Task<IActionResult> Register(RegisterUserRequest request, CancellationToken ct)
+    {
+        var result = await _registerUserHandler.HandleAsync(new RegisterUserCommand(request.IdToken), ct);
+        return result.IsSuccess ? Ok(result) : BadRequest(new { error = result });
+    }
 
     [Authorize]
     [HttpPost("logout")]
