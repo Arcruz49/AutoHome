@@ -2,7 +2,7 @@ using AutoHome.Application.Abstractions.Persistance;
 using AutoHome.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore.Storage;
 
-namespace VitalSyncAPI.Infrastructure.Data;
+namespace AutoHome.Infrastructure.Data;
 
 public class UnitOfWork : IUnitOfWork
 {

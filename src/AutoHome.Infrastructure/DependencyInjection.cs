@@ -6,7 +6,7 @@ using AutoHome.Infrastructure.Auth;
 using AutoHome.Infrastructure.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using VitalSyncAPI.Infrastructure.Data;
+using AutoHome.Infrastructure.Data;
 
 namespace AutoHome.Infrastructure;
 
