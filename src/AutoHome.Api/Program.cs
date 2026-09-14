@@ -1,6 +1,12 @@
 using AutoHome.Infrastructure;
+using AutoHome.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<AutoHomeDbContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"))
+);
 
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddControllers();

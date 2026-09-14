@@ -1,7 +1,11 @@
 using AutoHome.Application.Abstractions;
+using AutoHome.Application.Abstractions.Persistance;
+using AutoHome.Domain.Abstractions.Repositories;
 using AutoHome.Infrastructure.Auth;
+using AutoHome.Infrastructure.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using VitalSyncAPI.Infrastructure.Data;
 
 namespace AutoHome.Infrastructure;
 
@@ -12,6 +16,8 @@ public static class DependencyInjection
         services.Configure<AuthOptions>(configuration.GetSection(AuthOptions.SectionName));
 
         services.AddScoped<IGoogleTokenValidator, GoogleTokenValidator>();
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<IUserRepository, UserRepository>();
 
         return services;
     }
