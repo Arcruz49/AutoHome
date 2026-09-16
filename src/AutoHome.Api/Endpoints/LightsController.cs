@@ -10,19 +10,51 @@ namespace AutoHome.Api.Endpoints;
 [Route("light")]
 public class LightsController : BaseController
 {
-    private readonly IGoogleTokenValidator _googleTokenValidator;
-    public LightsController(IGoogleTokenValidator googleTokenValidator)
+    
+    public LightsController()
     {
-        _googleTokenValidator = googleTokenValidator;
     }
     
-    
-    [HttpPost("test")]
-    public async Task<IActionResult> TokenValidator(string token)
+    //read stats
+    [HttpGet("")]
+    public async Task<IActionResult> LightStats()
     {
-        var response = await _googleTokenValidator.ValidateAsync(token);        
+        return Ok();
+    }
 
-        return Ok(response);
+    //turn on
+    [HttpPost("turn-on")]
+    public async Task<IActionResult> TurnOnLight()
+    {
+        return Ok();
+    }
+
+    //turn off
+    [HttpPost("turn-off")]
+    public async Task<IActionResult> TurnOffLight()
+    {
+        return Ok();
+    }
+
+    //brightness
+    [HttpPost("brightness")]
+    public async Task<IActionResult> LightBrightness()
+    {
+        return Ok();
+    }
+
+    //temperature
+    [HttpPost("temperature")]
+    public async Task<IActionResult> LightTemperature()
+    {
+        return Ok();
+    }
+
+    //change color
+    [HttpPost("color")]
+    public async Task<IActionResult> LightColor()
+    {
+        return Ok();
     }
 
     

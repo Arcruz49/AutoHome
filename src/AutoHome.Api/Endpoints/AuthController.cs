@@ -35,20 +35,20 @@ public class AuthController : BaseController
         return result.IsSuccess ? Ok(result) : BadRequest(new { error = result });
     }
 
-    [Authorize]
-    [HttpPost("logout")]
-    public IActionResult Logout()
-    {
-        var isHttps = Request.IsHttps;
-        Response.Cookies.Append("autohome_token", "", new CookieOptions
-        {
-            HttpOnly = true,
-            Secure = isHttps,
-            SameSite = isHttps ? SameSiteMode.None : SameSiteMode.Lax,
-            Expires = DateTime.UtcNow.AddDays(-1)
-        });
+    // [Authorize]
+    // [HttpPost("logout")]
+    // public IActionResult Logout()
+    // {
+    //     var isHttps = Request.IsHttps;
+    //     Response.Cookies.Append("autohome_token", "", new CookieOptions
+    //     {
+    //         HttpOnly = true,
+    //         Secure = isHttps,
+    //         SameSite = isHttps ? SameSiteMode.None : SameSiteMode.Lax,
+    //         Expires = DateTime.UtcNow.AddDays(-1)
+    //     });
 
-        return Ok();
-    }
+    //     return Ok();
+    // }
 
 }

@@ -12,6 +12,7 @@ public class AutoHomeDbContext : DbContext
 
     public DbSet<User> Users => Set<User>();
     public DbSet<Config> Configs => Set<Config>();
+    public DbSet<Light> Lights => Set<Light>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -23,6 +24,15 @@ public class AutoHomeDbContext : DbContext
             entity.Property(u => u.Email).IsRequired().HasMaxLength(256);
             entity.Property(u => u.Name).IsRequired().HasMaxLength(200);
             entity.HasIndex(u => u.Email).IsUnique();
+        });
+
+        modelBuilder.Entity<Light>(entity =>
+        {
+            entity.HasKey(u => u.Id);
+            entity.HasIndex(u => u.DeviceId).IsUnique();
+            entity.Property(u => u.DeviceId).IsRequired().HasMaxLength(256);
+            entity.Property(u => u.Name).IsRequired().HasMaxLength(200);
+            entity.Property(u => u.IpAddress).HasMaxLength(45);
         });
 
         modelBuilder.Entity<Config>(entity =>

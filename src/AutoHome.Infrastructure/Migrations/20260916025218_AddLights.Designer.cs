@@ -3,6 +3,7 @@ using System;
 using AutoHome.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AutoHome.Infrastructure.Migrations
 {
     [DbContext(typeof(AutoHomeDbContext))]
-    partial class AutoHomeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260916025218_AddLights")]
+    partial class AddLights
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.12");
