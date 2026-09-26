@@ -1,4 +1,5 @@
 using AutoHome.Application.Commands;
+using AutoHome.Application.DTOs.Requests;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,12 +11,20 @@ namespace AutoHome.Api.Endpoints;
 public class LightsController : BaseController
 {
     private readonly ListAllLightsHandler _listAllLightsHandler;
-    public LightsController(ListAllLightsHandler listAllLightsHandler)
+    private readonly RegisterLightHandler _registerLightHandler;
+    private readonly UpdateLightHandler _updateLightHandler;
+    private readonly RemoveLightHandler _removeLightHandler;
+    private readonly ScanLightsHandler _scanLightsHandler;
+    public LightsController(ListAllLightsHandler listAllLightsHandler, RegisterLightHandler registerLightHandler, UpdateLightHandler updateLightHandler,
+        RemoveLightHandler removeLightHandler, ScanLightsHandler scanLightsHandler)
     {
         _listAllLightsHandler = listAllLightsHandler;
+        _registerLightHandler = registerLightHandler;
+        _updateLightHandler = updateLightHandler;
+        _removeLightHandler = removeLightHandler;
+        _scanLightsHandler = scanLightsHandler;
     }
     
-    //list all
     [HttpGet("list")]
     public async Task<IActionResult> LightsList(CancellationToken ct)
     {
@@ -24,17 +33,41 @@ public class LightsController : BaseController
         return Ok(response) ;
     }
 
-    //register
-    [HttpPost("register ")]
-    public async Task<IActionResult> AddLight()
+    [HttpGet("scan")]
+    public async Task<IActionResult> ScanLights(CancellationToken ct)
     {
+        var response = await _scanLightsHandler.HandleAsync(ct);
+        
+        return Ok(response) ;
+    }
+
+    [HttpPost("register")]
+    public async Task<IActionResult> AddLight(RegisterLightRequest request, CancellationToken ct)
+    {
+        var command = new RegisterLightCommand(request.DeviceId, request.Name, request.IpAddress, request.SupportsColour);
+
+        await _registerLightHandler.HandleAsync(command, ct);
+
         return Ok();
     }
 
-    //register
-    [HttpPut("")]
-    public async Task<IActionResult> UpdateLight()
+    [HttpPut]
+    public async Task<IActionResult> UpdateLight(UpdateLightRequest request, CancellationToken ct)
     {
+        var command = new UpdateLightCommand(request.Id, request.DeviceId, request.Name, request.IpAddress, request.SupportsColour);
+
+        await _updateLightHandler.HandleAsync(command, ct);
+
+        return Ok();
+    }
+
+    [HttpDelete]
+    public async Task<IActionResult> DeleteLight(Guid id, CancellationToken ct)
+    {
+        var command = new RemoveLightCommand(id);
+
+        await _removeLightHandler.HandleAsync(command, ct);
+
         return Ok();
     }
 
