@@ -2,8 +2,8 @@ namespace AutoHome.Application.Abstractions.Persistance;
 
 public interface IUnitOfWork
 {
-    Task SaveChangesAsync();
-    Task BeginTransactionAsync();
-    Task CommitAsync();
-    Task RollbackAsync();
+    Task SaveChangesAsync(CancellationToken ct);
+    Task BeginTransactionAsync(CancellationToken ct);
+    Task CommitAsync(CancellationToken ct);
+    Task RollbackAsync(CancellationToken ct);
 }

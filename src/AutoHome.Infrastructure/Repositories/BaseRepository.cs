@@ -22,8 +22,8 @@ public abstract class BaseRepository<T> where T : class
     protected void BaseRemove(T entity)
         => _db.Remove(entity);
 
-    protected async Task<T?> BaseFindAsync(Guid id)
-        => await _db.FindAsync<T>(id);
+    protected async Task<T?> BaseFindAsync(Guid id, CancellationToken ct)
+        => await _db.FindAsync<T>(id, ct);
 
     protected IQueryable<T> BaseQuery()
         => _db.Set<T>().AsNoTracking();

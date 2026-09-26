@@ -1,21 +1,44 @@
-using AutoHome.Application.Abstractions;
+using AutoHome.Application.Commands;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.RateLimiting;
-using System.Security.Claims;
 
 namespace AutoHome.Api.Endpoints;
 
 [ApiController]
+// [Authorize]
 [Route("light")]
 public class LightsController : BaseController
 {
-    
-    public LightsController()
+    private readonly ListAllLightsHandler _listAllLightsHandler;
+    public LightsController(ListAllLightsHandler listAllLightsHandler)
     {
+        _listAllLightsHandler = listAllLightsHandler;
     }
     
-    //read stats
+    //list all
+    [HttpGet("list")]
+    public async Task<IActionResult> LightsList(CancellationToken ct)
+    {
+        var response = await _listAllLightsHandler.HandleAsync(new ListAllLightsCommand(), ct);
+        
+        return Ok(response) ;
+    }
+
+    //register
+    [HttpPost("register ")]
+    public async Task<IActionResult> AddLight()
+    {
+        return Ok();
+    }
+
+    //register
+    [HttpPut("")]
+    public async Task<IActionResult> UpdateLight()
+    {
+        return Ok();
+    }
+
+    // light stats
     [HttpGet("")]
     public async Task<IActionResult> LightStats()
     {

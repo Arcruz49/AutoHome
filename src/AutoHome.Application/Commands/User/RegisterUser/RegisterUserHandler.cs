@@ -49,7 +49,7 @@ public class RegisterUserHandler
 
             await _userRepository.AddAsync(user, ct);
 
-            await _unitOfWork.SaveChangesAsync();
+            await _unitOfWork.SaveChangesAsync(ct);
 
             return Result<UserDto>.Success(new UserDto(user.Id, user.Name, user.Email));
 
