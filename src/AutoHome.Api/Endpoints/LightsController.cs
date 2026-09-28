@@ -15,14 +15,18 @@ public class LightsController : BaseController
     private readonly UpdateLightHandler _updateLightHandler;
     private readonly RemoveLightHandler _removeLightHandler;
     private readonly ScanLightsHandler _scanLightsHandler;
+    private readonly GetLightStateHandler _getLightStateHandler;
+    private readonly SwitchLightByIdHandler _switchLightByIdHandler;
     public LightsController(ListAllLightsHandler listAllLightsHandler, RegisterLightHandler registerLightHandler, UpdateLightHandler updateLightHandler,
-        RemoveLightHandler removeLightHandler, ScanLightsHandler scanLightsHandler)
+        RemoveLightHandler removeLightHandler, ScanLightsHandler scanLightsHandler, GetLightStateHandler getLightStateHandler, SwitchLightByIdHandler switchLightByIdHandler)
     {
         _listAllLightsHandler = listAllLightsHandler;
         _registerLightHandler = registerLightHandler;
         _updateLightHandler = updateLightHandler;
         _removeLightHandler = removeLightHandler;
         _scanLightsHandler = scanLightsHandler;
+        _getLightStateHandler = getLightStateHandler;
+        _switchLightByIdHandler = switchLightByIdHandler;
     }
     
     [HttpGet("list")]
@@ -30,7 +34,7 @@ public class LightsController : BaseController
     {
         var response = await _listAllLightsHandler.HandleAsync(new ListAllLightsCommand(), ct);
         
-        return Ok(response) ;
+        return response.IsSuccess ? Ok(response.Value) : BadRequest(response.Error);
     }
 
     [HttpGet("scan")]
@@ -38,15 +42,13 @@ public class LightsController : BaseController
     {
         var response = await _scanLightsHandler.HandleAsync(ct);
         
-        return Ok(response) ;
+        return response.IsSuccess ? Ok(response.Value) : BadRequest(response.Error);
     }
 
     [HttpPost("register")]
     public async Task<IActionResult> AddLight(RegisterLightRequest request, CancellationToken ct)
     {
-        var command = new RegisterLightCommand(request.DeviceId, request.Name, request.IpAddress, request.SupportsColour);
-
-        await _registerLightHandler.HandleAsync(command, ct);
+        await _registerLightHandler.HandleAsync(new RegisterLightCommand(request.DeviceId, request.Name, request.IpAddress, request.SupportsColour), ct);
 
         return Ok();
     }
@@ -64,32 +66,25 @@ public class LightsController : BaseController
     [HttpDelete]
     public async Task<IActionResult> DeleteLight(Guid id, CancellationToken ct)
     {
-        var command = new RemoveLightCommand(id);
-
-        await _removeLightHandler.HandleAsync(command, ct);
+        await _removeLightHandler.HandleAsync(new RemoveLightCommand(id), ct);
 
         return Ok();
     }
 
-    // light stats
-    [HttpGet("")]
-    public async Task<IActionResult> LightStats()
+    [HttpGet("light-state")]
+    public async Task<IActionResult> LightState(Guid id, CancellationToken ct)
     {
-        return Ok();
+        var response = await _getLightStateHandler.HandleAsync(new GetLightStateCommand(id), ct);
+
+        return response.IsSuccess ? Ok(response.Value) : BadRequest(response.Error);
     }
 
-    //turn on
-    [HttpPost("turn-on")]
-    public async Task<IActionResult> TurnOnLight()
+    [HttpPost("switch")]
+    public async Task<IActionResult> TurnOnLight(SwitchLightRequest request, CancellationToken ct)
     {
-        return Ok();
-    }
+        var response = await _switchLightByIdHandler.HandleAsync(new SwitchLightByIdCommand(request.Id, request.On), ct);
 
-    //turn off
-    [HttpPost("turn-off")]
-    public async Task<IActionResult> TurnOffLight()
-    {
-        return Ok();
+        return response.IsSuccess ? Ok(response.Value) : BadRequest(response.Error);
     }
 
     //brightness

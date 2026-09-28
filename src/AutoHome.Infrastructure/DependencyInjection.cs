@@ -33,13 +33,15 @@ public static class DependencyInjection
         services.AddScoped<RemoveLightHandler>();
         services.AddScoped<ScanLightsHandler>();
         services.AddScoped<SyncDevicesHandler>();
+        services.AddScoped<GetLightStateHandler>();
+        services.AddScoped<SwitchLightByIdHandler>();
 
         services.AddScoped<IGoogleTokenValidator, GoogleTokenValidator>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<ITokenIssuer, JwtTokenIssuer>();
         services.AddScoped<ILightScanner, PythonLightScanner>();
         services.AddScoped<ITuyaSync, PythonSyncDevices>();
-
+        services.AddScoped<ILightControl, PythonLightControl>();
 
         return services;
     }
