@@ -15,7 +15,9 @@ public class UpdateLightHandler
     }
     public async Task HandleAsync(UpdateLightCommand command, CancellationToken ct)
     {
-        var light = await _lightRepository.GetByIdAsync(command.Id) ?? throw new NullReferenceException("Light not found");
+        var light = await _lightRepository.GetByIdAsync(command.Id);
+
+        if(light == null) return;
 
         light.DeviceId = command.DeviceId;
         light.IpAddress = command.IpAddress;

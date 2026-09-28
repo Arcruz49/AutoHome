@@ -51,7 +51,7 @@ public class RegisterUserHandler
 
             await _unitOfWork.SaveChangesAsync(ct);
 
-            return Result<UserDto>.Success(new UserDto(user.Id, user.Name, user.Email));
+            return Result<UserDto>.Success(new UserDto(user.Id, user.Email, user.Name));
 
         }
         catch (InvalidCredentialException ex)

@@ -17,8 +17,10 @@ public class GetLightByIdHandler
     }
     public async Task<Result<LightDto>> HandleAsync(GetLightByIdCommand command, CancellationToken ct)
     {
-        var light = await _lightRepository.GetByIdAsync(command.Id, ct) ?? throw new NullReferenceException("Light not found");
+        var light = await _lightRepository.GetByIdAsync(command.Id, ct);
 
+        if(light == null) return Result<LightDto>.Failure("Light not found");
+        
         var dto = new LightDto(light.Id, light.DeviceId, light.Name, light.IpAddress, light.SupportsColour, light.CreatedAt);
 
         return Result<LightDto>.Success(dto);

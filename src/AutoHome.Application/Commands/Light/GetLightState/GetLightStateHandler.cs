@@ -23,10 +23,6 @@ public class GetLightStateHandler
 
             return await _lightControl.GetStateAsync(light.DeviceId, light.IpAddress, ct);
         }
-        catch(NullReferenceException ex)
-        {
-            return Result<LightState>.Failure(ex.Message);
-        }
         catch(Exception ex)
         {
             return Result<LightState>.Failure("Erro: " + ex);

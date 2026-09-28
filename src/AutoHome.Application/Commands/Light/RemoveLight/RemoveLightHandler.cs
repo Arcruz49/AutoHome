@@ -15,7 +15,9 @@ public class RemoveLightHandler
     }
     public async Task HandleAsync(RemoveLightCommand command, CancellationToken ct)
     {
-        var light = await _lightRepository.GetByIdAsync(command.Id) ?? throw new NullReferenceException("Light not found");
+        var light = await _lightRepository.GetByIdAsync(command.Id);
+
+        if(light == null) return;
 
         _lightRepository.Delete(light);
         await _unitOfWork.SaveChangesAsync(ct);

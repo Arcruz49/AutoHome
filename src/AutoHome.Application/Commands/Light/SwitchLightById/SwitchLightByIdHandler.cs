@@ -23,10 +23,6 @@ public class SwitchLightByIdHandler
 
             return await _lightControl.SwitchAsync(light.DeviceId, light.IpAddress, command.On, ct);
         }
-        catch(NullReferenceException ex)
-        {
-            return Result<LightState>.Failure(ex.Message);
-        }
         catch(Exception ex)
         {
             return Result<LightState>.Failure("Erro: " + ex);
